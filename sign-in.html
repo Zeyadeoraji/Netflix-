@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nitflix Form</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      box-sizing: border-box;
+    }
+    body {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url(header-image.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .container {
+      width: 30%;
+      height: 90vh;
+      background: #0a0804d6;
+      padding: 23px;
+      position: absolute;
+      left: 35%;
+      top: 5%;
+      border-radius: 6px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      margin: 0 20px;
+      margin-top: 35px;
+    }
+    .heading {
+      text-align: left;
+      color: #fff;
+      font-weight: bold;
+      margin-left: 20px;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      height: 50px;
+      margin: 12px 0;
+      border-radius: 4px;
+      outline: none;
+      border: none;
+      background: #333333;
+      color: #fff;
+      padding: 10px;
+    }
+
+    ::placeholder {
+      color: #8c8c8c;
+      padding: 16px 20px 0;
+    }
+    .btn {
+      width: 100%;
+      height: 45px;
+      margin-top: 35px;
+      padding: 8px 0;
+      background: #e50914;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+    .checkbox {
+      margin-top: 8px;
+      color: #8c8c8c;
+    }
+    .checkbox input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+    .checkbox input[type="checkbox"] + label {
+      font-size: 12px;
+    }
+
+    .checkbox a {
+      float: right;
+      text-decoration: none;
+      color: #fff;
+      font-size: 12px;
+    }
+    .checkbox a:hover {
+      text-decoration: underline;
+    }
+    .link {
+      color: #c8c8c8da;
+      margin-top: 20px;
+    }
+    .link a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .link a:hover {
+      text-decoration: underline;
+    }
+    .para {
+      color: #c8c8c8da;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .para a {
+      color: royalblue;
+      font-size: 13px;
+    }
+    #message {
+      display: none;
+      color: #fff;
+    }
+    #p-text {
+      display: none;
+      color: red;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 55px;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="heading">
+        <h1>Sign in</h1>
+      </div>
+      <form>
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Your Email"
+          id="emailField"
+        />
+        <p id="p-text">Please Enter Valid <span id="eamil-text"></span></p>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter Your password"
+        />
+        <p id="message">Password is <span id="Strength"></span></p>
+        <button class="btn">Sign in</button>
+        <div class="checkbox">
+          <input type="checkbox" />
+          <label for="checkbox">Remember me</label>
+
+          <a href="#">Need help?</a>
+        </div>
+        <div class="link">New to Nitflix <a href="">Sign Up Now</a></div>
+        <div class="para">
+          <p>
+            This page is protected by Google reCAPTCHA to ensure you're not a
+            bot. <a href="">Learn more.</a>
+          </p>
+        </div>
+      </form>
+    </div>
+    <script>
+      let pass = document.getElementById("password");
+      let msg = document.getElementById("message");
+      let str = document.getElementById("Strength");
+
+      pass.addEventListener("input", () => {
+        if (pass.value.length > 0) {
+          msg.style.display = "block";
+        } else {
+          msg.style.display = "none";
+        }
+        if (pass.value.length < 4) {
+          str.innerHTML = "Weak";
+          msg.style.color = "red";
+          // pass.style.borderColor = "red";
+        } else if (pass.value.length >= 4 && pass.value.length < 8) {
+          str.innerHTML = "Middium";
+          msg.style.color = "yellow";
+          // pass.style.borderColor = "yellow";
+        } else if (pass.value.length >= 8) {
+          str.innerHTML = "Strong";
+          msg.style.color = "green";
+          // pass.style.borderColor = "green";
+        }
+      });
+
+      let email = document.getElementById("emailField");
+      let message = document.getElementById("p-text");
+      let str2 = document.getElementById("eamil-text");
+
+      email.addEventListener("input", () => {
+        console.log("email", email.value);
+        const email_err = email.value.match(
+          /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
+        );
+
+        console.log("email_err", email_err);
+        if (!email_err) {
+          message.style.display = "block";
+          str2.innerHTML = "Email";
+          message.style.color = "red";
+        } else {
+          message.style.display = "none";
+        }
+      });
+
+      // var emailField = document.getElementById("emailField");
+      // var error = document.getElementById("ErrorMsg");
+      // function validateEmail() {
+      //   if (
+      //     emailField.value.match(
+      //       /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/
+      //     )
+      //   ) {
+      //     alert("Please Enter a Valid Email");
+      //     error.style.color = "red";
+      //     return false;
+      //   }
+      //   alert("");
+      //   return true;
+      // }
+    </script>
+  </body>
+</html>
